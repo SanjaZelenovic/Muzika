@@ -14,18 +14,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -223,30 +224,77 @@ public class MuzikaGUI extends JFrame {
 				try {
 					PrintWriter sacuvaj = new PrintWriter (new BufferedWriter(new FileWriter("data/muzika.out")));
 					
-					String autor = textFieldAutor.getText();
-					String album = textFieldAlbum.getText();
-					String pesma = textFieldPesma.getText();
-					int pozicijaNaMTVListi = Integer.parseInt(textFieldPozicijaNaMTVListi.getText());
-					
 					Muzika m = new Muzika();
-					m.setAlbum(album);
-					m.setAutor(autor);
-					m.setPesma(pesma);
-					m.setPozicijaNaMTVListi(pozicijaNaMTVListi);
 					
-					pesme.add(m);
+					if(textFieldAlbum.getText().isEmpty()) {
+						m.setAlbum("nepoznato");
+					} else {
+						String album = textFieldAlbum.getText();
+						m.setAlbum(album);
+					}
+					if(textFieldAutor.getText().isEmpty()) {
+						m.setAutor("nepoznato");
+					} else {
+						String autor = textFieldAutor.getText();
+						m.setAutor(autor);
+					}
+					if(textFieldPesma.getText().isEmpty()) {
+						m.setPesma("nepoznato");
+					} else {
+						String pesma = textFieldPesma.getText();
+						m.setPesma(pesma);
+					}
+					if(textFieldPozicijaNaMTVListi.getText().isEmpty()) {
+						m.setPozicijaNaMTVListi(-1);
+					} else {
+						int pozicijaNaMTVListi = Integer.parseInt(textFieldPozicijaNaMTVListi.getText());
+						m.setPozicijaNaMTVListi(pozicijaNaMTVListi);
+					}					
+					
+					if(!(pesme.contains(m))) {
+						pesme.add(m);
+					}
+
 					sacuvaj.println(m);
 					
 					textAreaString.setText(m.toString());
 					sacuvaj.close();
 					
-					
-					
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				
+				JSONObject obj = new JSONObject();
+				try {
+					
+					if(textFieldAlbum.getText().isEmpty()) {
+						obj.put("album", "nepoznato");
+					} else {
+						obj.put("album", textFieldAlbum.getText());
+					}
+					if(textFieldAutor.getText().isEmpty()) {
+						obj.put("autor", "nepoznato");
+					} else {
+						obj.put("autor", textFieldAutor.getText());
+					}
+					if(textFieldPesma.getText().isEmpty()) {
+						obj.put("pesma", "nepoznato");
+					} else {
+						obj.put("pesma", textFieldPesma.getText());
+					}
+					if(textFieldPozicijaNaMTVListi.getText().isEmpty()) {
+						obj.put("pozicijaNaMTVListi", "nepoznato");
+					} else {
+						obj.put("pozicijaNaMTVListi", textFieldPozicijaNaMTVListi.getText());
+					}
+					
+					
+					textAreaJSON.setText(obj.toString(4));
+					
+				} catch (JSONException e) {
+					System.out.println("Greska!");
 				}
 					
 				}

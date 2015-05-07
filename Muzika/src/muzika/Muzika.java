@@ -11,14 +11,14 @@ public class Muzika {
 	private int pozicijaNaMTVListi;
 	
 	public String getAutor() {
-		if (autor != null && !autor.isEmpty()) {
+		if (autor != null) {
 			return autor;
 		} else {
 			return "Greska, polje autor ne sme biti prazan string ili null";
 		}
 	}
 	public void setAutor(String autor) throws Exception {
-		if (autor != null && !autor.isEmpty()) {
+		if (autor != null) {
 			this.autor = autor;
 		} else {
 			throw new Exception();
@@ -27,28 +27,28 @@ public class Muzika {
 	}
 	
 	public String getPesma() {
-		if ( pesma != null && !pesma.isEmpty()) {
+		if ( pesma != null) {
 			return pesma;
 		} else {
 			return "Greska, polje autor ne sme biti prazan string ili null";
 		}
 	}
 	public void setPesma(String pesma) throws Exception {
-		if ( pesma != null && !pesma.isEmpty()) {
+		if ( pesma != null) {
 			this.pesma = pesma;
 		} else {
 			throw new Exception();
 		}
 	}
 	public String getAlbum() {
-		if ( album != null && !album.isEmpty()) {
+		if ( album != null) {
 			return album;
 		} else {
 			return "Greska, polje autor ne sme biti prazan string ili null";
 		}
 	}
 	public void setAlbum(String album) throws Exception {
-		if ( album != null && !album.isEmpty()) {
+		if ( album != null) {
 			this.album = album;
 		} else {
 			throw new Exception();
