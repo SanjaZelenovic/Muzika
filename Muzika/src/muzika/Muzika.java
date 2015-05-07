@@ -66,8 +66,8 @@ public class Muzika {
 	}
 	
 	public String toString() {
-		return "Autor: " + autor +"/n/n"+"Pesma:" + pesma +  "Album:"
-				+ album + "/n/n"+ "Pozicija na MTV listi:" + pozicijaNaMTVListi;
+		return "Autor: " + autor +"\n\nPesma:" + pesma +  "\n\nAlbum:"
+				+ album + "\n\nPozicija na MTV listi:" + pozicijaNaMTVListi;
 	}
 	 public boolean equals(Object o) {
 		if (o instanceof Muzika) {
