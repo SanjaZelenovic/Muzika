@@ -238,6 +238,7 @@ public class MuzikaGUI extends JFrame {
 					sacuvaj.println(m);
 					
 					textAreaString.setText(m.toString());
+					sacuvaj.close();
 					
 					
 					
