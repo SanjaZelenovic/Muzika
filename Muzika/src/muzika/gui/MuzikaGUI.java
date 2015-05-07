@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import java.awt.Component;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -31,6 +32,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.swing.JComboBox;
+import javax.swing.JSpinner;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MuzikaGUI extends JFrame {
 
@@ -49,19 +56,24 @@ public class MuzikaGUI extends JFrame {
 	private JLabel lblAlbum;
 	private JTextField textFieldAlbum;
 	private JLabel lblPozicijaNaMTVListi;
-	private JTextField textFieldPozicijaNaMTVListi;
 	private JButton btnNewButton;
 	private LinkedList<Muzika> pesme = new LinkedList<Muzika>();
+	private JSpinner spinnerPozicijaNaMTVListi;
 
+	
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					MuzikaGUI frame = new MuzikaGUI();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,20 +81,32 @@ public class MuzikaGUI extends JFrame {
 		});
 	}
 
+
 	/**
 	 * Create the frame.
 	 */
 	public MuzikaGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				int opcija =
+						JOptionPane.showConfirmDialog(contentPane,
+						 "Da li ste sigurni da zelite da izadjete iz aplikacije?", "Zatvaranje aplikacije",
+						 JOptionPane.YES_NO_CANCEL_OPTION);
+				if (opcija == JOptionPane.YES_OPTION)
+					System.exit(0);
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MuzikaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/Computer.gif")));
 		setTitle("Muzika");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 459, 353);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[160.00,grow][156.00,grow][159.00,grow]", "[grow]"));
 		contentPane.add(getPanel(), "cell 0 0,grow");
-		contentPane.add(getPanel_1(), "cell 1 0,grow");
+		contentPane.add(getPanel_1(), "cell 1 0,alignx center,aligny center");
 		contentPane.add(getPanel_2(), "cell 2 0,grow");
 	}
 
@@ -97,16 +121,16 @@ public class MuzikaGUI extends JFrame {
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
-			panel_1.setLayout(null);
-			panel_1.add(getLblAutor());
-			panel_1.add(getTextFieldAutor());
-			panel_1.add(getLblPesma());
-			panel_1.add(getTextFieldPesma());
-			panel_1.add(getLblAlbum());
-			panel_1.add(getTextFieldAlbum());
-			panel_1.add(getLblPozicijaNaMTVListi());
-			panel_1.add(getTextFieldPozicijaNaMTVListi());
-			panel_1.add(getBtnNewButton());
+			panel_1.setLayout(new MigLayout("", "[134px]", "[16px][22px][16px][22px][16px][22px][16px][22px][25px][]"));
+			panel_1.add(getLblAutor(), "cell 0 0,alignx center,aligny top");
+			panel_1.add(getTextFieldAutor(), "cell 0 1,alignx center,aligny top");
+			panel_1.add(getLblPesma(), "cell 0 2,alignx center,aligny top");
+			panel_1.add(getTextFieldPesma(), "cell 0 3,alignx center,aligny top");
+			panel_1.add(getLblAlbum(), "cell 0 4,alignx center,aligny top");
+			panel_1.add(getTextFieldAlbum(), "cell 0 5,alignx center,aligny top");
+			panel_1.add(getLblPozicijaNaMTVListi(), "cell 0 6,growx,aligny top");
+			panel_1.add(getSpinnerPozicijaNaMTVListi(), "cell 0 7,growx,aligny top");
+			panel_1.add(getBtnNewButton(), "cell 0 9,growx,aligny top");
 		}
 		return panel_1;
 	}
@@ -123,7 +147,6 @@ public class MuzikaGUI extends JFrame {
 			lblAutor = new JLabel("Autor");
 			lblAutor.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lblAutor.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAutor.setBounds(32, 5, 70, 16);
 		}
 		return lblAutor;
 	}
@@ -157,7 +180,6 @@ public class MuzikaGUI extends JFrame {
 		if (textFieldAutor == null) {
 			textFieldAutor = new JTextField();
 			textFieldAutor.setAutoscrolls(false);
-			textFieldAutor.setBounds(7, 26, 116, 22);
 			textFieldAutor.setColumns(10);
 		}
 		return textFieldAutor;
@@ -167,7 +189,6 @@ public class MuzikaGUI extends JFrame {
 			lblPesma = new JLabel("Pesma");
 			lblPesma.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lblPesma.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPesma.setBounds(32, 53, 70, 16);
 		}
 		return lblPesma;
 	}
@@ -175,7 +196,6 @@ public class MuzikaGUI extends JFrame {
 		if (textFieldPesma == null) {
 			textFieldPesma = new JTextField();
 			textFieldPesma.setAutoscrolls(false);
-			textFieldPesma.setBounds(7, 74, 116, 22);
 			textFieldPesma.setColumns(10);
 		}
 		return textFieldPesma;
@@ -185,7 +205,6 @@ public class MuzikaGUI extends JFrame {
 			lblAlbum = new JLabel("Album");
 			lblAlbum.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lblAlbum.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAlbum.setBounds(32, 109, 70, 16);
 		}
 		return lblAlbum;
 	}
@@ -193,7 +212,6 @@ public class MuzikaGUI extends JFrame {
 		if (textFieldAlbum == null) {
 			textFieldAlbum = new JTextField();
 			textFieldAlbum.setAutoscrolls(false);
-			textFieldAlbum.setBounds(7, 135, 116, 22);
 			textFieldAlbum.setColumns(10);
 		}
 		return textFieldAlbum;
@@ -203,22 +221,13 @@ public class MuzikaGUI extends JFrame {
 			lblPozicijaNaMTVListi = new JLabel("Pozicija na MTV listi");
 			lblPozicijaNaMTVListi.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lblPozicijaNaMTVListi.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPozicijaNaMTVListi.setBounds(0, 170, 134, 16);
 		}
 		return lblPozicijaNaMTVListi;
-	}
-	private JTextField getTextFieldPozicijaNaMTVListi() {
-		if (textFieldPozicijaNaMTVListi == null) {
-			textFieldPozicijaNaMTVListi = new JTextField();
-			textFieldPozicijaNaMTVListi.setAutoscrolls(false);
-			textFieldPozicijaNaMTVListi.setBounds(7, 195, 116, 22);
-			textFieldPozicijaNaMTVListi.setColumns(10);
-		}
-		return textFieldPozicijaNaMTVListi;
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Prikazi");
+			btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent o) {
 				try {
@@ -244,12 +253,15 @@ public class MuzikaGUI extends JFrame {
 						String pesma = textFieldPesma.getText();
 						m.setPesma(pesma);
 					}
-					if(textFieldPozicijaNaMTVListi.getText().isEmpty()) {
+					
+					int i;
+					i = Integer.parseInt(spinnerPozicijaNaMTVListi.getValue().toString());
+					if ( i == 0) {
 						m.setPozicijaNaMTVListi(-1);
 					} else {
-						int pozicijaNaMTVListi = Integer.parseInt(textFieldPozicijaNaMTVListi.getText());
-						m.setPozicijaNaMTVListi(pozicijaNaMTVListi);
-					}					
+						m.setPozicijaNaMTVListi(i);
+					}
+								
 					
 					if(!(pesme.contains(m))) {
 						pesme.add(m);
@@ -284,10 +296,13 @@ public class MuzikaGUI extends JFrame {
 					} else {
 						obj.put("pesma", textFieldPesma.getText());
 					}
-					if(textFieldPozicijaNaMTVListi.getText().isEmpty()) {
-						obj.put("pozicijaNaMTVListi", "nepoznato");
+					
+					int i;
+					i = Integer.parseInt(spinnerPozicijaNaMTVListi.getValue().toString());
+					if( i == 0) {
+						obj.put("pozicijaNaMTVListi", "Pesma se ne nalazai na MTV listi");
 					} else {
-						obj.put("pozicijaNaMTVListi", textFieldPozicijaNaMTVListi.getText());
+						obj.put("pozicijaNaMTVListi", i);
 					}
 					
 					
@@ -299,12 +314,14 @@ public class MuzikaGUI extends JFrame {
 					
 				}
 			});
-			btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-			btnNewButton.setBounds(7, 244, 116, 25);
 		}
 		return btnNewButton;
 	}
-
-	
+	private JSpinner getSpinnerPozicijaNaMTVListi() {
+		if (spinnerPozicijaNaMTVListi == null) {
+			spinnerPozicijaNaMTVListi = new JSpinner();
+		}
+		return spinnerPozicijaNaMTVListi;
+	}
 }
 
