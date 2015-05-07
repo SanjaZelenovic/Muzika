@@ -6,7 +6,6 @@ import java.util.LinkedList;
 public class Muzika {
 
 	private String autor;
-	private String izvodjac;
 	private String pesma;
 	private String album;
 	private int pozicijaNaMTVListi;
@@ -25,21 +24,6 @@ public class Muzika {
 			throw new Exception();
 		}
 		
-	}
-	
-	public String getIzvodjac() {
-			if ( izvodjac != null && !izvodjac.isEmpty()) {
-				return izvodjac;
-			} else {
-				return "Greska";
-			}
-	}
-	public void setIzvodjac(String izvodjac) throws Exception {
-		if (izvodjac != null && !izvodjac.isEmpty()) {
-			this.izvodjac = izvodjac;
-		} else {
-			throw new Exception ();
-		}
 	}
 	
 	public String getPesma() {
@@ -80,10 +64,21 @@ public class Muzika {
 	public void setPozicijaNaMTVListi(int pozicijaNaMTVListi) {
 		this.pozicijaNaMTVListi = pozicijaNaMTVListi;
 	}
+	
 	public String toString() {
-		return "Autor: " + autor +"/n/n"+ "Pesma:" + pesma +"/n/n"+  "Album:"
+		return "Autor: " + autor +"/n/n"+"Pesma:" + pesma +  "Album:"
 				+ album + "/n/n"+ "Pozicija na MTV listi:" + pozicijaNaMTVListi;
 	}
-	
+	 public boolean equals(Object o) {
+		if (o instanceof Muzika) {
+			Muzika m = (Muzika) (o);
+			if (pesma.equals(m.getPesma())&& autor.equals(m.getAutor())
+					&& album.equals(m.getAlbum())&& pozicijaNaMTVListi == m.getPozicijaNaMTVListi()) {
+				return true;
+			} return false;
+		}
+		System.out.println("Greska, unesite objekat klase Muzika");
+		return false;
+	}
 	
 }
