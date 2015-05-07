@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class Muzika {
 
 	private String autor;
+	private String izvodjac;
 	private String pesma;
 	private String album;
 	private int pozicijaNaMTVListi;
@@ -25,6 +26,22 @@ public class Muzika {
 		}
 		
 	}
+	
+	public String getIzvodjac() {
+			if ( izvodjac != null && !izvodjac.isEmpty()) {
+				return izvodjac;
+			} else {
+				return "Greska";
+			}
+	}
+	public void setIzvodjac(String izvodjac) throws Exception {
+		if (izvodjac != null && !izvodjac.isEmpty()) {
+			this.izvodjac = izvodjac;
+		} else {
+			throw new Exception ();
+		}
+	}
+	
 	public String getPesma() {
 		if ( pesma != null && !pesma.isEmpty()) {
 			return pesma;
