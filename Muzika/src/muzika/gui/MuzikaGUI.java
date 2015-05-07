@@ -25,6 +25,11 @@ import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class MuzikaGUI extends JFrame {
 
@@ -45,6 +50,7 @@ public class MuzikaGUI extends JFrame {
 	private JLabel lblPozicijaNaMTVListi;
 	private JTextField textFieldPozicijaNaMTVListi;
 	private JButton btnNewButton;
+	private LinkedList<Muzika> pesme = new LinkedList<Muzika>();
 
 	/**
 	 * Launch the application.
@@ -213,9 +219,34 @@ public class MuzikaGUI extends JFrame {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Prikazi");
 			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					MuzikaGUI mg = new MuzikaGUI();
-					Muzika muzika = new Muzika();
+				public void actionPerformed(ActionEvent o) {
+				try {
+					PrintWriter sacuvaj = new PrintWriter (new BufferedWriter(new FileWriter("muzika.out")));
+					
+					String autor = textFieldAutor.getText();
+					String album = textFieldAlbum.getText();
+					String pesma = textFieldPesma.getText();
+					int pozicijaNaMTVListi = Integer.parseInt(textFieldPozicijaNaMTVListi.getText());
+					
+					Muzika m = new Muzika();
+					m.setAlbum(album);
+					m.setAutor(autor);
+					m.setPesma(pesma);
+					m.setPozicijaNaMTVListi(pozicijaNaMTVListi);
+					
+					pesme.add(m);
+					sacuvaj.println(m);
+					
+					textAreaString.setText(m.toString());
+					
+					
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 					
 				}
 			});
