@@ -221,7 +221,7 @@ public class MuzikaGUI extends JFrame {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent o) {
 				try {
-					PrintWriter sacuvaj = new PrintWriter (new BufferedWriter(new FileWriter("muzika.out")));
+					PrintWriter sacuvaj = new PrintWriter (new BufferedWriter(new FileWriter("data/muzika.out")));
 					
 					String autor = textFieldAutor.getText();
 					String album = textFieldAlbum.getText();
